@@ -9,10 +9,17 @@ function ReaderPage() {
   const [text, setText] = useState("");
   const [readerText, setReaderText] = useState("");
   const [selectedWord, setSelectedWord] = useState("");
+  const [selectedSentence, setSelectedSentence] = useState("");
 
   function handleStartReading() {
     setReaderText(text.trim());
     setSelectedWord("");
+    setSelectedSentence("");
+  }
+
+  function handleWordClick(word: string, sentence: string) {
+    setSelectedWord(word);
+    setSelectedSentence(sentence);
   }
 
   return (
@@ -54,7 +61,7 @@ function ReaderPage() {
           <Card className="mt-6">
             <h2 className="mb-4 text-lg font-semibold">Your Reading</h2>
 
-            <ReaderText text={readerText} onWordClick={setSelectedWord} />
+            <ReaderText text={readerText} onWordClick={handleWordClick} />
 
             {selectedWord && (
               <div className="mt-6 border-t border-border pt-4">
@@ -62,6 +69,9 @@ function ReaderPage() {
                 <p className="text-xl font-semibold text-brand-600">
                   {selectedWord}
                 </p>
+
+                <p className="mt-3 text-sm font-medium">Sentence context</p>
+                <p className="mt-1 text-sm leading-7">{selectedSentence}</p>
               </div>
             )}
           </Card>
