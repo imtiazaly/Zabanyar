@@ -3,13 +3,16 @@ import AppLayout from "../../../components/layout/AppLayout";
 import Button from "../../../components/ui/Button";
 import Card from "../../../components/ui/Card";
 import Textarea from "../../../components/ui/Textarea";
+import ReaderText from "./ReaderText";
 
 function ReaderPage() {
   const [text, setText] = useState("");
   const [readerText, setReaderText] = useState("");
+  const [selectedWord, setSelectedWord] = useState("");
 
   function handleStartReading() {
     setReaderText(text.trim());
+    setSelectedWord("");
   }
 
   return (
@@ -50,7 +53,17 @@ function ReaderPage() {
         {readerText && (
           <Card className="mt-6">
             <h2 className="mb-4 text-lg font-semibold">Your Reading</h2>
-            <p className="whitespace-pre-wrap leading-8">{readerText}</p>
+
+            <ReaderText text={readerText} onWordClick={setSelectedWord} />
+
+            {selectedWord && (
+              <div className="mt-6 border-t border-border pt-4">
+                <p className="text-sm text-muted">Selected word</p>
+                <p className="text-xl font-semibold text-brand-600">
+                  {selectedWord}
+                </p>
+              </div>
+            )}
           </Card>
         )}
       </main>
